@@ -32,7 +32,7 @@ A beginner-friendly Streamlit app to explore S&P 500 companies, download stock d
 
 #Run Commands
 
-- pip install -r requirements.txt  
+-pip install -r requirements.txt  
 
 -streamlit run home.py  
 
