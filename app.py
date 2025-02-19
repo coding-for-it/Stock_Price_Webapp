@@ -1,7 +1,7 @@
 import streamlit as st
 import psycopg2
 import bcrypt
-import home  # ✅ Import home.py properly
+import home  
 
 # PostgreSQL Database Connection
 DB_PARAMS = {
@@ -61,6 +61,14 @@ def main():
         st.session_state["authenticated"] = False
 
     if st.session_state["authenticated"]:
+        st.sidebar.write(f"👤 Logged in as: **{st.session_state['user']}**")
+
+        # ✅ Logout Button
+        if st.sidebar.button("🚪 Logout"):
+            st.session_state["authenticated"] = False
+            st.session_state.pop("user", None)
+            st.rerun()
+
         # ✅ Load home.py after login
         home.show_home_page()
     else:
@@ -79,8 +87,6 @@ def main():
                     st.session_state["authenticated"] = True
                     st.session_state["user"] = username
                     st.success(f"Welcome {username}! Redirecting...")
-
-                    # ✅ Fix: Use st.rerun() instead of deprecated st.experimental_rerun()
                     st.rerun()
                 else:
                     st.error("Invalid credentials. Please try again.")
